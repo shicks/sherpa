@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /**
+ * Check if URL is on Trail Life Connect domain
+ */
+function isTrailLifeConnectUrl(url) {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname === 'www.traillifeconnect.com' || 
+           urlObj.hostname === 'traillifeconnect.com';
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
  * Update the page info section with current URL
  */
 function updatePageInfo(tab) {
@@ -21,7 +34,7 @@ function updatePageInfo(tab) {
     return;
   }
   
-  if (tab.url.includes('traillifeconnect.com')) {
+  if (isTrailLifeConnectUrl(tab.url)) {
     pageInfo.textContent = `On: ${getPageName(tab.url)}`;
   } else {
     pageInfo.textContent = 'Not on Trail Life Connect';
@@ -57,7 +70,7 @@ function getPageName(url) {
 function loadActionsForPage(tab) {
   const actionsSection = document.getElementById('actions');
   
-  if (!tab || !tab.url || !tab.url.includes('traillifeconnect.com')) {
+  if (!tab || !tab.url || !isTrailLifeConnectUrl(tab.url)) {
     // Not on Trail Life Connect
     actionsSection.innerHTML = '<p class="placeholder">Navigate to a Trail Life Connect page to see available actions.</p>';
     return;
