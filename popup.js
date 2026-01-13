@@ -140,13 +140,10 @@ async function executeAction(tabId, action) {
       action: action
     });
     
-    // Provide feedback
-    console.log(`Action "${action}" executed`);
-    
     // Optional: Close popup after action
     // window.close();
   } catch (error) {
     console.error('Error executing action:', error);
-    alert('Error: Unable to execute action. Please refresh the page and try again.');
+    alert(`Error: Unable to execute action. ${error.message || 'Please refresh the page and try again.'}`);
   }
 }

@@ -108,7 +108,8 @@ function addGeneralHelperButton() {
   const floatingButton = document.createElement('div');
   floatingButton.id = 'sherpa-floating-button';
   floatingButton.className = 'sherpa-floating-btn';
-  floatingButton.innerHTML = '🎒'; // Backpack emoji as a sherpa icon
+  floatingButton.setAttribute('aria-label', 'Sherpa Helper');
+  floatingButton.innerHTML = '<span class="sherpa-icon">🎒</span>'; // Backpack emoji as a sherpa icon
   floatingButton.title = 'Sherpa Helper';
   
   floatingButton.addEventListener('click', () => {
@@ -137,19 +138,25 @@ function findOrCreateButtonContainer(pageType) {
   // Try to find a suitable place to insert the container
   // This is a generic approach - may need customization based on actual page structure
   const possibleParents = [
-    document.querySelector('header'),
-    document.querySelector('.page-header'),
-    document.querySelector('.toolbar'),
-    document.querySelector('nav'),
-    document.querySelector('main'),
-    document.body
+    'header',
+    '.page-header',
+    '.toolbar',
+    'nav',
+    'main'
   ];
   
-  for (const parent of possibleParents) {
+  for (const selector of possibleParents) {
+    const parent = document.querySelector(selector);
     if (parent) {
       parent.insertBefore(container, parent.firstChild);
       return container;
     }
+  }
+  
+  // Fallback to body if no suitable parent found
+  if (document.body) {
+    document.body.insertBefore(container, document.body.firstChild);
+    return container;
   }
   
   return null;
@@ -201,28 +208,52 @@ function handleAction(action) {
  * Action implementations (placeholders for now)
  */
 
+/**
+ * Show a styled notification instead of alert
+ */
+function showNotification(message, type = 'info') {
+  // Remove existing notification if present
+  const existing = document.getElementById('sherpa-notification');
+  if (existing) {
+    existing.remove();
+  }
+  
+  const notification = document.createElement('div');
+  notification.id = 'sherpa-notification';
+  notification.className = `sherpa-notification sherpa-notification-${type}`;
+  notification.textContent = message;
+  
+  document.body.appendChild(notification);
+  
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    notification.classList.add('sherpa-notification-fade');
+    setTimeout(() => notification.remove(), 300);
+  }, 5000);
+}
+
 function exportRoster() {
-  alert('Export Roster functionality will be implemented here.\n\nThis will extract roster data from the page and download it as a file.');
+  showNotification('Export Roster functionality will be implemented soon. This will extract roster data from the page and download it as a file.', 'info');
 }
 
 function bulkUpdate() {
-  alert('Bulk Update functionality will be implemented here.\n\nThis will allow updating multiple members at once.');
+  showNotification('Bulk Update functionality will be implemented soon. This will allow updating multiple members at once.', 'info');
 }
 
 function markAllPresent() {
-  alert('Mark All Present functionality will be implemented here.\n\nThis will automatically check all attendance boxes.');
+  showNotification('Mark All Present functionality will be implemented soon. This will automatically check all attendance boxes.', 'info');
 }
 
 function exportAttendance() {
-  alert('Export Attendance functionality will be implemented here.\n\nThis will extract attendance data and download it.');
+  showNotification('Export Attendance functionality will be implemented soon. This will extract attendance data and download it.', 'info');
 }
 
 function exportCalendar() {
-  alert('Export Calendar functionality will be implemented here.\n\nThis will export calendar events to a file format like ICS.');
+  showNotification('Export Calendar functionality will be implemented soon. This will export calendar events to a file format like ICS.', 'info');
 }
 
 function showHelperMenu() {
-  alert('Sherpa Helper Menu\n\nThis menu will show all available actions for the current page.\n\nClick the Sherpa icon in the toolbar to access actions.');
+  showNotification('Click the Sherpa icon in the toolbar to access all available actions for this page.', 'info');
 }
 
 /**
