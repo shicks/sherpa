@@ -200,7 +200,7 @@ function handleAction(action) {
       break;
     default:
       console.log(`Unknown action: ${action}`);
-      alert(`Action "${action}" is not yet implemented.`);
+      showNotification(`Action "${action}" is not yet implemented.`, 'warning');
   }
 }
 

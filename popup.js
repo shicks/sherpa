@@ -144,6 +144,15 @@ async function executeAction(tabId, action) {
     // window.close();
   } catch (error) {
     console.error('Error executing action:', error);
-    alert(`Error: Unable to execute action. ${error.message || 'Please refresh the page and try again.'}`);
+    // Show error in a more user-friendly way
+    const errorMessage = error.message || 'Please refresh the page and try again.';
+    if (chrome.notifications) {
+      chrome.notifications.create({
+        type: 'basic',
+        iconUrl: 'icons/icon48.png',
+        title: 'Sherpa Error',
+        message: `Unable to execute action. ${errorMessage}`
+      });
+    }
   }
 }

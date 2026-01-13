@@ -7,7 +7,6 @@
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === 'install') {
     console.log('Sherpa extension installed');
-    // Could open a welcome page or show notification
   } else if (details.reason === 'update') {
     console.log('Sherpa extension updated');
   }

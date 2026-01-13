@@ -35,7 +35,7 @@ venv/
 .venv/
 
 # Icon generation script (not needed in repo)
-generate-icons.sh
+# generate-icons.sh
 
 # Package files
 *.zip
