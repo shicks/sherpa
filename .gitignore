@@ -1,0 +1,43 @@
+# .gitignore for Chrome Extension
+
+# Node modules (if we add build tools later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs (if we add build process later)
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+venv/
+.venv/
+
+# Icon generation script (not needed in repo)
+generate-icons.sh
+
+# Package files
+*.zip
+*.crx
+*.pem
